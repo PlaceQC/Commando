@@ -11,14 +11,20 @@ const upload = multer({ dest: `${__dirname}/uploads/` });
 const VALID_COLORS = ['#FF4500', '#FFA800', '#FFD635', '#00A368', '#7EED56', '#2450A4', '#3690EA', '#51E9F4', '#811E9F', '#B44AC0', '#FF99AA', '#9C6926', '#000000', '#898D90', '#D4D7D9', '#FFFFFF'];
 
 var appData = {
+    canvasWidth: 2000,
+    canvasHeight: 1000,
     currentMap: 'blank.png',
     mapHistory: [
-        { file: 'blank.png', reason: 'Init ^Noah', date: 1648890843309 }
+        { file: 'blank.png', reason: 'Init', date: 1648890843309 }
     ]
 };
 
 if (fs.existsSync(`${__dirname}/data.json`)) {
     appData = require(`${__dirname}/data.json`);
+
+    // Temporary overwrite
+    appData.canvasWidth = 2000;
+    appData.canvasHeight = 1000;
 }
 
 const server = app.listen(process.env.PORT || 8080);
@@ -60,20 +66,24 @@ app.post('/updateorders', upload.single('image'), async (req, res) => {
             return
         }
 
-        if (pixels.data.length !== 4000000) {
-            res.send('File must be 1000x1000!');
+        const pixelCount = appData.canvasWidth * appData.canvasHeight;
+        const pixelData = pixelCount * 4;
+
+        if (pixels.data.length !== pixelData) {
+            res.send(`File must be ${appData.canvasWidth}x${appData.canvasHeight}!`);
             fs.unlinkSync(req.file.path);
             return;
         }
 
-        for (var i = 0; i < 1000000; i++) {
+        for (var i = 0; i < pixelCount; i++) {
             const r = pixels.data[i * 4];
             const g = pixels.data[(i * 4) + 1];
             const b = pixels.data[(i * 4) + 2];
 
             const hex = rgbToHex(r, g, b);
             if (VALID_COLORS.indexOf(hex) === -1) {
-                res.send(`Pixel at ${i % 1000}, ${Math.floor(i / 1000)} has invalid color.`);
+
+                res.send(`Pixel at ${i % appData.canvasWidth}, ${Math.floor(i / appData.canvasHeight)} has invalid color.`);
                 fs.unlinkSync(req.file.path);
                 return;
             }
