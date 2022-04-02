@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-plaza.min.css"
+        integrity="sha512-RpD5mCLQYGZoDdai32OJ1wRCa10a89ZLZCGxyldsPFcczVM672bqNzKL/D66eH32C04GOIssjAnld5jxCUFiUw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .large-statistic {
+            font-size: 5rem !important;
+        }
+    </style>
+
+    <title>PlaceQC - Centre de Contrôle</title>
+</head>
+
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="fleur-de-lys" viewBox="0 0 219 300">
+            <path
+                d="m 182.75847,203.5552 c 4.80546,-7.14689 4.39578,-22.79233 -5.21215,-28.31548 -7.35026,-3.67513 -15.65143,-2.2368 -19.52991,0.92698 -6.24382,3.7768 -12.25739,15.85478 -12.25739,28.08525 l 21.56033,-0.0269 -0.006,24.0752 -44.74739,-0.0239 c 0.58611,12.38299 7.3383,22.30191 19.90367,27.82506 -1.61776,5.21816 -9.19529,15.85477 -19.60164,15.1341 -2.05436,11.25565 -4.00707,17.5742 -13.36383,27.80116 -9.36272,-10.22397 -11.31543,-16.54551 -13.36978,-27.80116 -10.40639,0.72067 -17.98389,-9.91594 -19.60168,-15.1341 12.56541,-5.52315 19.31759,-15.44207 19.9037,-27.82506 l -44.75038,0.0239 v -24.0752 l 21.55435,0.0269 c 0,-12.23047 -6.00459,-24.30845 -12.2544,-28.08525 -3.87848,-3.16079 -12.17665,-4.59912 -19.52392,-0.92698 -9.61391,5.52315 -10.02658,21.17158 -5.22112,28.31548 -45.3992696,-8.42975 -40.8958396,-52.27406 -25.42981,-68.19163 12.49961,-12.85846 26.12656,-14.86795 36.63459,-10.81305 23.88083,8.56133 39.94194,37.08913 40.72242,79.70143 h 12.48762 c 0,-38.73681 -6.74019,-51.08691 -24.30247,-99.73969 C 67.50787,81.51957 72.82172,53.09344 88.6346,26.91901 94.29829,17.53832 101.37344,9.06969 109.50416,0 c 8.12476,9.06969 15.19988,17.53832 20.86357,26.91901 15.81291,26.17443 21.12673,54.60056 12.2873,77.59325 -17.57121,48.65278 -24.31144,60.99989 -24.31144,99.73969 h 12.48765 c 0.78049,-42.6123 16.84758,-71.1401 40.72242,-79.70143 10.50803,-4.05191 24.14398,-2.04541 36.63758,10.81305 15.46304,15.91757 19.9665,59.76188 -25.43279,68.19163 z"
+                id="path3015" style="fill:#FFF;fill-opacity:1" />
+        </symbol>
+    </svg>
+
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32">
+                        <use xlink:href="#fleur-de-lys"></use>
+                    </svg>
+                    <span class="fs-4">PlaceQC</span>
+                </a>
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="#" class="nav-link px-2  text-white">Installation</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2  text-white">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="card">
+        <div class="card-body text-center">
+            <h1 data-statistic="connectionCount" class="odometer large-statistic">0</h1>
+            <h3>Clients Connectés</h3>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body text-center">
+            <img class="current-order img-thumbnail" width="500" height="500" />
+            <h3>Commandes en cours</h3>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body text-center">
+            <h3>Historique des commandes</h3>
+            <ul class="list-group list-group-flush maphistory">
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/odometer.min.js"
+        integrity="sha512-v3fZyWIk7kh9yGNQZf1SnSjIxjAKsYbg6UQ+B+QxAZqJQLrN3jMjrdNwcxV6tis6S0s1xyVDZrDz9UoRLfRpWw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        function updateStats() {
+            fetch('/api/stats').then(async (res) => {
+                const data = await res.json();
+
+                document.querySelector('[data-statistic=\'connectionCount\']').innerText = data.connectionCount;
+                document.querySelector('.current-order').src = `/maps/${data.currentMap}`;
+                document.querySelector('.maphistory').innerHTML = data.mapHistory.reverse().map((item) => `<li class="list-group-item">
+    <img width="250" height="250" class="img-thumbnail" src="/maps/${escapeHtml(item.file)}" />
+    <br />
+    ${new Date(item.date).toLocaleString()}
+    <br />
+    ${escapeHtml(item.reason)}
+</li>`).join('');
+            });
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        updateStats();
+        setInterval(updateStats, 5000);
+    </script>
+</body>
+
+</html>
